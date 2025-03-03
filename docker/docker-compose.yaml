@@ -284,3 +284,21 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_ROOT_HOST: 172.%
+
+  kafka-streams-summary-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kafka-streams-summary-app
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+      - controller-1
+      - controller-2
+      - controller-3
+    environment:
+      BOOTSTRAP_SERVERS_CONFIG: "broker-1:29092,broker-2:29093,broker-3:29094"
+      APP_ID_CONFIG: "sales-transactions-summary-app"
+      INPUT_TOPIC: "sales-transactions"
+      OUTPUT_TOPIC: "sales-summary"

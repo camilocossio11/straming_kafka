@@ -22,6 +22,7 @@ lazy val root = (project in file("."))
       "io.confluent" % "kafka-schema-registry-client" % "7.5.0",
       "com.typesafe" % "config" % "1.4.2",
       "org.apache.avro" % "avro" % "1.11.0",
-      "org.apache.avro" % "avro-compiler" % "1.11.0"
+      "org.apache.avro" % "avro-compiler" % "1.11.0",
+      "org.slf4j" % "slf4j-simple" % "1.7.36"
     )
   )

@@ -38,4 +38,7 @@ docker compose restart connect
 echo "Waiting for restarting..."
 sleep 30
 
+echo "Starting Transactions Summary Kafka Streams application..."
+docker exec -it kafka-streams-summary-app java -jar /app/summary_app.jar
+
 echo "OK"

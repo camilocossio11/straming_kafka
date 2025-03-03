@@ -30,7 +30,7 @@ object SalesSummaryApp {
     avroSerdeSalesSummary.configure(Map("schema.registry.url" -> SalesSummaryConfig.schemaRegistryUrl).asJava, false)
 
     val salesStream: KStream[String, SalesTransaction] = builder.stream(
-      "sales-transactions",
+      SalesSummaryConfig.inputTopicSummaryApp,
       Consumed.`with`(Serdes.String, avroSerdeSalesTransaction)
     )
 
@@ -51,7 +51,7 @@ object SalesSummaryApp {
       )
     val materialized: Materialized[String, SalesSummary, WindowStore[Bytes, Array[Byte]]] =
       Materialized
-        .as[String, SalesSummary](Stores.persistentWindowStore("sales-summary", Duration.ofSeconds(30), Duration.ofMinutes(1), false))
+        .as[String, SalesSummary](Stores.persistentWindowStore("sales-summary", Duration.ofMinutes(1), Duration.ofMinutes(1), false))
         .withKeySerde(Serdes.String())
         .withValueSerde(avroSerdeSalesSummary)
     val windowedStream: KTable[Windowed[String], SalesSummary] = groupedStream
@@ -73,7 +73,7 @@ object SalesSummaryApp {
           summary.getWindowEnd
         )
         KeyValue.pair(categoryKey, salesSummary)
-    }.to("sales-summary", Produced.`with`(Serdes.String(), avroSerdeSalesSummary))
+    }.to(SalesSummaryConfig.outputTopicSummaryApp, Produced.`with`(Serdes.String(), avroSerdeSalesSummary))
 
     val streams = new KafkaStreams(builder.build(), props)
     streams.start()
