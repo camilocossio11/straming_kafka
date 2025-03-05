@@ -8,17 +8,21 @@
     "timestamp.column.name": "timestamp",
     "poll.interval.ms": "1000",
     "tasks.max": "1",
+
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.confluent.connect.avro.AvroConverter",
     "value.converter.schema.registry.url": "http://schema-registry:8081",
 
-    "transforms": "CastPrice, RenameTopic",
+    "transforms": "CastPrice, RenameTopic, SetSchemaNamespace",
 
     "transforms.CastPrice.type": "org.apache.kafka.connect.transforms.Cast$Value",
     "transforms.CastPrice.spec": "price:float64",
 
     "transforms.RenameTopic.type": "org.apache.kafka.connect.transforms.RegexRouter",
     "transforms.RenameTopic.regex": "sales_transactions",
-    "transforms.RenameTopic.replacement": "sales-transactions"
+    "transforms.RenameTopic.replacement": "sales-transactions",
+
+    "transforms.SetSchemaNamespace.type": "org.apache.kafka.connect.transforms.SetSchemaMetadata$Value",
+    "transforms.SetSchemaNamespace.schema.name": "com.farmia.sales.sales_transactions"
   }
 }
