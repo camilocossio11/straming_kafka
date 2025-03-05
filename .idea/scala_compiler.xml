@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
+    <profile name="Maven 1" modules="sales-summary-app">
+      <option name="deprecationWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+    </profile>
     <profile name="sbt 1" modules="streaming_kafka" />
   </component>
 </project>

@@ -1,6 +1,6 @@
 {
+  "name": "sales_summary",
   "namespace": "com.farmia.sales",
-  "name": "SalesSummary",
   "type": "record",
   "fields": [
     { "name": "category", "type": "string" },

@@ -9,11 +9,9 @@ object SalesSummaryConfig {
     if (config.hasPath(path) && config.getString(path).trim != null) config.getString(path).trim else default
   }
 
-  def transactionsSchema: String = config.getString("salesTransactions.schema")
-  def summarySchema: String = config.getString("salesTransactions.schemaSummary")
   def appIdConfig: String = getStringOrDefault("salesTransactions.appIdConfig", "sales-transactions-summary")
   def bootstrapServersConfig: String = getStringOrDefault(
-    "salesTransactions.bootstrapServersConfig", "broker1:9092,broker2:9093,broker3:9094"
+    "salesTransactions.bootstrapServersConfig", "broker-1:29092,broker-2:29093,broker-3:29094"
   )
   def schemaRegistryUrl: String = getStringOrDefault(
     "salesTransactions.schemaRegistryUrl", "http://schema-registry:8081"

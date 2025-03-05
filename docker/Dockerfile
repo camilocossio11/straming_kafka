@@ -1,4 +1,4 @@
 FROM openjdk:11
 WORKDIR /app
-COPY ./apps/summary_app.jar summary_app.jar
+COPY ./apps/sales-summary-app.jar sales-summary-app.jar
 CMD ["sleep", "infinity"]
