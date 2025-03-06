@@ -38,13 +38,7 @@ docker compose restart connect
 echo "Waiting for restarting..."
 sleep 20
 
-#echo "Defining schema in schema registry..."
-#cd ..
-#curl -X POST http://localhost:8081/subjects/sales-transactions-value/versions \
-#  -H "Content-Type: application/vnd.schemaregistry.v1+json" \
-#  --data "{\"schema\": $(cat src/main/avro/sales_transaction.avsc | jq -Rs .)}"
-
-#echo "Starting Transactions Summary Kafka Streams application..."
-#docker exec -it kafka-streams-summary-app java -jar /app/sales-summary-app.jar
+echo "Starting Transactions Summary Kafka Streams application..."
+docker exec kafka-streams-summary-app java -jar /app/sales-summary-app.jar
 
 echo "OK"

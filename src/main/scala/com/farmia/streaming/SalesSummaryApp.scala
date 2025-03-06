@@ -54,6 +54,7 @@ object SalesSummaryApp {
         .as[String, sales_summary](Stores.persistentWindowStore("sales-summary", Duration.ofMinutes(1), Duration.ofMinutes(1), false))
         .withKeySerde(Serdes.String())
         .withValueSerde(avroSerdeSalesSummary)
+
     val windowedStream: KTable[Windowed[String], sales_summary] = groupedStream
       .windowedBy(TimeWindows.ofSizeWithNoGrace(Duration.ofMinutes(1)))
       .aggregate(
@@ -69,8 +70,8 @@ object SalesSummaryApp {
           summary.getCategory,
           summary.getTotalQuantity,
           summary.getTotalRevenue,
-          summary.getWindowStart,
-          summary.getWindowEnd
+          windowedKey.window().start(),
+          windowedKey.window().end()
         )
         KeyValue.pair(categoryKey, salesSummary)
     }.to(SalesSummaryConfig.outputTopicSummaryApp, Produced.`with`(Serdes.String(), avroSerdeSalesSummary))
