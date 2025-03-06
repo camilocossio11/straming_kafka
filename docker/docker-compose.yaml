@@ -302,3 +302,4 @@ services:
       APP_ID_CONFIG: "sales-transactions-summary-app"
       INPUT_TOPIC: "sales-transactions"
       OUTPUT_TOPIC: "sales-summary"
+      WINDOW_SIZE_MINUTES: 1
