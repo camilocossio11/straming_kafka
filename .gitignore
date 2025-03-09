@@ -1,0 +1,42 @@
+# Ignore compilation and binary folders
+target/
+project/target/
+project/project/target/
+**/target/
+
+# Ignore cache files and incremental compilations of SBT
+.metals/
+.bloop/
+.bsp/
+.idea/
+.vscode/
+*.iml
+
+# Ignore specific compiled classes
+project/project/target/config-classes/
+
+# Ignore dependencies downloaded by SBT
+lib_managed/
+src_managed/
+target/
+
+# Ignore logs
+logs/
+*.log
+nohup.out
+
+# Ignore output files of Kafka Streams
+state-store/
+checkpoint/
+
+# Ignore local user configuration
+.DS_Store
+*.swp
+*.swo
+*.bak
+
+# Ignore binary and zipped files
+*.jar
+*.war
+*.zip
+*.tar.gz

@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "name": "sales_transactions",
+  "namespace": "com.farmia.sales",
+  "fields": [
+    { "name": "transaction_id", "type": "string" },
+    { "name": "product_id", "type": "string" },
+    { "name": "category", "type": "string" },
+    { "name": "quantity", "type": "int" },
+    { "name": "price", "type": "double" },
+    { "name": "timestamp", "type": { "type": "long", "logicalType": "timestamp-millis" } }
+  ]
+}

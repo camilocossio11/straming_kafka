@@ -1,7 +1,7 @@
 #/bin/bash
 
-cd ../1.environment
+cd ./docker
 
-echo "Deteniendo entorno"
+echo "Stopping environment"
 docker compose down --remove-orphans
 echo "OK"

@@ -15,7 +15,7 @@
     {
       "name": "temperature",
       "type": {
-        "type": "float",
+        "type": "double",
         "arg.properties": {
           "range": {
             "min": 15.00,
@@ -27,11 +27,11 @@
     {
       "name": "humidity",
       "type": {
-        "type": "float",
+        "type": "double",
         "arg.properties": {
           "range": {
-            "min": 10.00,
-            "max": 40.00
+            "min": 0.05,
+            "max": 0.70
           }
         }
       }
@@ -39,11 +39,23 @@
     {
       "name": "soil_fertility",
       "type": {
-        "type": "float",
+        "type": "double",
         "arg.properties": {
           "range": {
             "min": 40.00,
             "max": 90.00
+          }
+        }
+      }
+    },
+    {
+      "name": "timestamp",
+      "type": {
+        "type": "long",
+        "arg.properties": {
+          "iteration": {
+            "start": 1741421258,
+            "step": 1
           }
         }
       }

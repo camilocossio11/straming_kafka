@@ -1,0 +1,11 @@
+{
+  "name": "SensorAlerts",
+  "namespace": "com.farmia.iot",
+  "type": "record",
+  "fields": [
+    { "name": "sensor_id", "type": "string" },
+    { "name": "alert_type", "type": "string" },
+    { "name": "timestamp", "type": "long" },
+    { "name": "details", "type": "string" }
+  ]
+}
