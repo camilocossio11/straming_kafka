@@ -110,7 +110,71 @@ It also includes Dockerfiles that enable the deployment of applications within t
 - **sensors-alerts-app**: Contains the source code of the application.
 - **summary-transactions-app**: Contains the source code of the application.
 
-# Task description
+# Tasks description
+
+I decided not to modify the base of the project (the initial schemas and data configurations) provided by the teacher to
+make the scenario more realistic. This reflects real-world situations where we often cannot alter the data structures 
+provided by the client. Therefore, all my transformations and processing are performed within the sections I developed.
+
+## Task 1: Integration of MySQL with Kafka Connect
+
+This is the connector I configured:
+
+```avroschema
+{
+  "name": "mysql-source-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "connection.url": "jdbc:mysql://mysql:3306/db?user=user&password=password&useSSL=false",
+    "mode": "timestamp",
+    "table.whitelist": "sales_transactions",
+    "timestamp.column.name": "timestamp",
+    "poll.interval.ms": "1000",
+    "tasks.max": "1",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter.schema.registry.url": "http://schema-registry:8081",
+
+    "transforms": "CastPrice, RenameTopic, SetSchemaNamespace",
+
+    "transforms.CastPrice.type": "org.apache.kafka.connect.transforms.Cast$Value",
+    "transforms.CastPrice.spec": "price:float64",
+
+    "transforms.RenameTopic.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.RenameTopic.regex": "sales_transactions",
+    "transforms.RenameTopic.replacement": "sales-transactions",
+
+    "transforms.SetSchemaNamespace.type": "org.apache.kafka.connect.transforms.SetSchemaMetadata$Value",
+    "transforms.SetSchemaNamespace.schema.name": "com.farmia.sales.sales_transactions"
+  }
+}
+```
+
+### Process Explanation
+
+- The connector will track the records it has already processed using the `timestamp` column defined in the table from 
+which the records are being read. This approach was chosen because there is no auto-incremental column available, which
+would have made the process more robust by allowing the use of a `timestamp+incremental` mode.
+- The connector will poll the database every 1 second.
+- I applied a cast transformation because the `price` column was causing issues. The `DOUBLE` type in SQL appears to 
+behave differently, so I cast it to `float64` to ensure it could be processed correctly.
+- I also implemented a topic renaming transformation to ensure records are written to the correct topic. The connector 
+was reading from a table called `sales_transactions` and attempting to route the records to a topic with the same name. 
+Since this topic did not exist, the connector was creating it, which is incorrect behavior. The renaming ensures that 
+the records are written to the correct topic (`sales-transactions`).
+- To automatically generate the SerDes classes for the Kafka stream that will process these records, I needed to define 
+a namespace in the Avro schema. Initially, the connector was generating and registering a schema without a namespace in
+the schema registry, causing the generated classes to mismatch the published schema. This mismatch in the schema 
+registry caused my application to fail because it didn’t match the schema being written. Adding the namespace resolved 
+this issue and ensured the schema was correctly mapped. 
+
+## Task 2: Synthetic data generation using Kafka Connect
+
+### Process Explanation
+- Based on the experience got from the previous task, I defined a namespace.
+- Using a regex I defined the sensor ID.
+- 
 
 ## Setup
 
