@@ -1,0 +1,4 @@
+FROM openjdk:11
+WORKDIR /app
+COPY ./apps/sensors-alerts-app.jar sensors-alerts-app.jar
+CMD ["sleep", "infinity"]

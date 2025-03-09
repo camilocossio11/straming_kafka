@@ -288,7 +288,7 @@ services:
   kafka-streams-summary-app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.sales
     container_name: kafka-streams-summary-app
     depends_on:
       - broker-1
@@ -303,3 +303,23 @@ services:
       INPUT_TOPIC: "sales-transactions"
       OUTPUT_TOPIC: "sales-summary"
       WINDOW_SIZE_MINUTES: 1
+
+  kafka-streams-sensor-alerts-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.iot
+    container_name: kafka-streams-sensor-alerts-app
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+      - controller-1
+      - controller-2
+      - controller-3
+    environment:
+      BOOTSTRAP_SERVERS_CONFIG: "broker-1:29092,broker-2:29093,broker-3:29094"
+      APP_ID_CONFIG: "sensors-alerts-app"
+      INPUT_TOPIC: "sensor-telemetry"
+      OUTPUT_TOPIC: "sensor-alerts"
+      TEMPERATURE_THRESHOLD: 35.0
+      HUMIDITY_THRESHOLD: 0.2

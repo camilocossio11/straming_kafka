@@ -39,6 +39,9 @@ echo "Waiting for restarting..."
 sleep 20
 
 echo "Starting Transactions Summary Kafka Streams application..."
-docker exec kafka-streams-summary-app java -jar /app/sales-summary-app.jar
+docker exec kafka-streams-summary-app java -jar /app/sales-summary-app.jar &
+
+echo "Starting Sensor Alerts Kafka Streams application..."
+docker exec kafka-streams-sensor-alerts-app java -jar /app/sensors-alerts-app.jar &
 
 echo "OK"

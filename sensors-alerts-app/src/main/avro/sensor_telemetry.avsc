@@ -1,0 +1,12 @@
+{
+  "name": "SensorTelemetry",
+  "namespace": "com.farmia.iot",
+  "type": "record",
+  "fields": [
+    { "name": "sensor_id", "type": "string" },
+    { "name": "temperature", "type": "double" },
+    { "name": "humidity", "type": "double" },
+    { "name": "soil_fertility", "type": "double" },
+    { "name": "timestamp", "type": { "type": "long", "logicalType": "timestamp-millis" } }
+  ]
+}
