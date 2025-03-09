@@ -110,6 +110,8 @@ It also includes Dockerfiles that enable the deployment of applications within t
 - **sensors-alerts-app**: Contains the source code of the application.
 - **summary-transactions-app**: Contains the source code of the application.
 
+# Task description
+
 ## Setup
 
 The following script automates the necessary steps to prepare the environment.
@@ -145,6 +147,8 @@ The following command shuts down the environment.
 ```shell
 ./shutdown.sh
 ```
+
+> ⚠️ **NOTE**<br/>The state of the containers is not persisted. This means that the state and data in our cluster will be lost once we stop it.
 
 ## How to run the project?
 

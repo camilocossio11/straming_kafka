@@ -3,7 +3,7 @@
 
 ## Descripción
 
-El entorno local se basa en un docker 🐳 con los siguientes contenedores 
+The local environment is based on a Docker 🐳 with the following containers:
 
 ```             
 controller-1
@@ -22,21 +22,21 @@ mysql
 
 ## Comandos
 
-Para utilizar el entorno utilizaremos comandos. Una vez dentro del directorio _**1.environment**_ 
+To initialize the environment, run the following command from within the **docker** directory:
 
-* arrancar el entorno:
+* Start the environment:
 
 ```bash
 docker compose up -d
 ```
 
-* verificar estado de los contenedores:
+* Verify the containers status:
 
 ```bash
 docker compose ps
 ```
 
-* parar el entorno:
+* Stop the environment:
 
 ```bash
 docker compose down
@@ -50,4 +50,4 @@ docker compose down
 * ksqlDB: http://localhost:8088
 
 
-> ⚠️ **NOTA**<br/>El estado de los contenedores no se persiste. Esto quiere decir que el estado y los datos en nuestro cluster se perderán una vez lo paremos 
+> ⚠️ **NOTE**<br/>The state of the containers is not persisted. This means that the state and data in our cluster will be lost once we stop it. 
