@@ -13,7 +13,7 @@
     "value.converter": "io.confluent.connect.avro.AvroConverter",
     "value.converter.schema.registry.url": "http://schema-registry:8081",
 
-    "transforms": "CastPrice, RenameTopic, SetSchemaNamespace",
+    "transforms": "CastPrice, RenameTopic, SetSchemaNamespace, SetKey, ExtractKey",
 
     "transforms.CastPrice.type": "org.apache.kafka.connect.transforms.Cast$Value",
     "transforms.CastPrice.spec": "price:float64",
@@ -23,6 +23,12 @@
     "transforms.RenameTopic.replacement": "sales-transactions",
 
     "transforms.SetSchemaNamespace.type": "org.apache.kafka.connect.transforms.SetSchemaMetadata$Value",
-    "transforms.SetSchemaNamespace.schema.name": "com.farmia.sales.sales_transactions"
+    "transforms.SetSchemaNamespace.schema.name": "com.farmia.sales.sales_transactions",
+
+    "transforms.SetKey.type": "org.apache.kafka.connect.transforms.ValueToKey",
+    "transforms.SetKey.fields": "category",
+
+    "transforms.ExtractKey.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "transforms.ExtractKey.field": "category"
   }
 }
