@@ -29,11 +29,7 @@ object SalesSummaryApp {
       Consumed.`with`(Serdes.String, avroSerdeSalesTransaction)
     )
 
-    val categoryStream: KStream[String, sales_transactions] = salesStream.selectKey(
-      (_, transaction) => transaction.get(2).toString
-    )
-
-    val groupedStream: KGroupedStream[String, sales_transactions] = categoryStream.groupByKey(
+    val groupedStream: KGroupedStream[String, sales_transactions] = salesStream.groupByKey(
       Grouped.`with`(Serdes.String(), avroSerdeSalesTransaction)
     )
 
