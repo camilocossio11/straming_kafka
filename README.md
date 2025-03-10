@@ -301,6 +301,21 @@ output topic specified in the configuration.
 A KafkaStreams instance is created with the defined stream configuration, and the stream processing is started. A 
 shutdown hook is also added to ensure that the stream is properly closed when the application is terminated.
 
+## Build Applications
+
+The following script automates the applications building process.
+
+1. Compiles and packages the apps.
+2. Copy the generated `.jar` files to the `docker/apps` folder to build the corresponding images.
+3. Build the docker compose.
+
+```shell
+./build_apps.sh
+```
+
+> ⚠️ **NOTE**<br/>If you have a permission access problems when running the file (`zsh: permission denied: 
+> ./build_apps.sh`) just execute `chmod +x build_apps.sh` and try again.
+
 ## Setup
 
 The following script automates the necessary steps to prepare the environment.
