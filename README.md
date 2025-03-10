@@ -110,7 +110,20 @@ It also includes Dockerfiles that enable the deployment of applications within t
 - **sensors-alerts-app**: Contains the source code of the application.
 - **summary-transactions-app**: Contains the source code of the application.
 
-# Task description
+## Build Applications
+
+The following script automates the applications building process.
+
+1. Compiles and packages the apps.
+2. Copy the generated `.jar` files to the `docker/apps` folder to build the corresponding images.
+3. Build the docker compose.
+
+```shell
+./build_apps.sh
+```
+
+> ⚠️ **NOTE**<br/>If you have a permission access problems when running the file (`zsh: permission denied: 
+> ./build_apps.sh`) just execute `chmod +x build_apps.sh` and try again.
 
 ## Setup
 
@@ -122,7 +135,7 @@ The following script automates the necessary steps to prepare the environment.
 4. Installs the plugins of the connectors.
 5. Copy the drivers JDBC for MySQL.
 6. Copy the AVRO schemas inside the connect container.
-7. Starts the Kafka Streams applications.
+7. **Starts the Kafka Streams applications.**
 
 ```shell
 ./setup.sh
@@ -152,30 +165,19 @@ The following command shuts down the environment.
 
 ## How to run the project?
 
-1. Compile and package the applications by running the following command in the root folder of the project:
+1. Execute the build application
     ```shell
-    mvn clean compile package
+    ./build_apps.sh
     ```
-2. From the `target` folder of each application, copy the `{app-name}-1.0-SNAPSHOT.jar` file to the `docker/apps` 
-directory, renaming it as follows:
-   
-    `{app-name}-1.0-SNAPSHOT.jar` → `{app-name}.jar`
-
-3. Build the docker compose:
-    ```shell
-   cd docker
-    docker compose build
-    ```
-
-4. Execute the setup
+2. Execute the setup
     ```shell
     ./setup.sh
     ```
-5. Execute the connectors
+3. Execute the connectors
     ```shell
     ./start_connectors.sh
     ```
-6. Shut down the application when needed.
+4. Shut down the application when needed.
     ```shell
     ./shutdown.sh
     ```
