@@ -356,30 +356,19 @@ The following command shuts down the environment.
 
 ## How to run the project?
 
-1. Compile and package the applications by running the following command in the root folder of the project:
+1. Execute the build application
     ```shell
-    mvn clean compile package
+    ./build_apps.sh
     ```
-2. From the `target` folder of each application, copy the `{app-name}-1.0-SNAPSHOT.jar` file to the `docker/apps` 
-directory, renaming it as follows:
-   
-    `{app-name}-1.0-SNAPSHOT.jar` → `{app-name}.jar`
-
-3. Build the docker compose:
-    ```shell
-   cd docker
-    docker compose build
-    ```
-
-4. Execute the setup
+2. Execute the setup
     ```shell
     ./setup.sh
     ```
-5. Execute the connectors
+3. Execute the connectors
     ```shell
     ./start_connectors.sh
     ```
-6. Shut down the application when needed.
+4. Shut down the application when needed.
     ```shell
     ./shutdown.sh
     ```
